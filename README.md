@@ -1,6 +1,8 @@
-# AI PII Guard (Local) — Chrome Extension MVP
+# AI PII Guard (Local)
 
-Tiny MV3 extension that **scrubs PII from text locally** before you paste into AI chats.
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/V7V01UDZTK)
+
+Tiny MV3 extension that **scrubs PII + secrets locally** before you paste into AI chats.
 
 ## Features
 - Local-only (no network)
@@ -20,7 +22,7 @@ Tiny MV3 extension that **scrubs PII from text locally** before you paste into A
 1. Open Chrome → `chrome://extensions`
 2. Enable **Developer mode**
 3. Click **Load unpacked**
-4. Select `projects/ai-pii-guard-extension/src`
+4. Select the `src/` folder of this repo
 
 ## Settings
 Open the extension settings (Options page):
