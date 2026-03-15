@@ -115,6 +115,100 @@
       });
     }
 
+    // Advanced: SSN (US)
+    if (opts.ssnUs) {
+      const re = /\b(\d{3})-(\d{2})-(\d{4})\b/g;
+      out = out.replace(re, (m, a, b, c) => {
+        // basic validity: avoid 000/00/0000 and disallow 666 / 9xx
+        const area = Number(a);
+        const group = Number(b);
+        const serial = Number(c);
+        if (area === 0 || group === 0 || serial === 0) return m;
+        if (area === 666) return m;
+        if (area >= 900) return m;
+        findings.push({ type: 'SSN', sample: m });
+        return '[SSN]';
+      });
+    }
+
+    // Advanced: NINO (UK)
+    if (opts.ninoUk) {
+      // e.g. AB123456C or AB 12 34 56 C
+      const re = /\b([A-Z]{2})\s*(\d{2})\s*(\d{2})\s*(\d{2})\s*([A-D])\b/gi;
+      const bad = new Set(['D','F','I','Q','U','V','O']);
+      out = out.replace(re, (m, p1, d1, d2, d3, suf) => {
+        const a = String(p1).toUpperCase();
+        const s = String(suf).toUpperCase();
+        if (bad.has(a[0]) || bad.has(a[1])) return m;
+        findings.push({ type: 'NINO', sample: `${a}${d1}${d2}${d3}${s}` });
+        return '[NINO]';
+      });
+    }
+
+    // Advanced: NIP (PL)
+    if (opts.nipPl) {
+      const re = /\b\d{10}\b/g;
+      const weights = [6, 5, 7, 2, 3, 4, 5, 6, 7];
+      out = out.replace(re, (m) => {
+        // exclude PESEL (11 digits) not matched; ok
+        const digits = m.split('').map((x) => Number(x));
+        let sum = 0;
+        for (let i = 0; i < 9; i++) sum += weights[i] * digits[i];
+        const mod = sum % 11;
+        if (mod === 10) return m;
+        if (mod !== digits[9]) return m;
+        findings.push({ type: 'NIP', sample: m });
+        return '[NIP]';
+      });
+    }
+
+    // Advanced: REGON (PL) 9-digit
+    if (opts.regonPl) {
+      const re = /\b\d{9}\b/g;
+      const weights = [8, 9, 2, 3, 4, 5, 6, 7];
+      out = out.replace(re, (m) => {
+        const digits = m.split('').map((x) => Number(x));
+        let sum = 0;
+        for (let i = 0; i < 8; i++) sum += weights[i] * digits[i];
+        let mod = sum % 11;
+        if (mod === 10) mod = 0;
+        if (mod !== digits[8]) return m;
+        findings.push({ type: 'REGON', sample: m });
+        return '[REGON]';
+      });
+    }
+
+    // Advanced: IPv4 addresses
+    if (opts.ip) {
+      const re = /\b(?:(?:\d{1,3})\.){3}(?:\d{1,3})\b/g;
+      out = out.replace(re, (m) => {
+        const parts = m.split('.').map((x) => Number(x));
+        if (parts.length !== 4) return m;
+        if (parts.some((n) => !Number.isInteger(n) || n < 0 || n > 255)) return m;
+        findings.push({ type: 'IP', sample: m });
+        return '[IP]';
+      });
+    }
+
+    // Advanced: MAC addresses
+    if (opts.mac) {
+      const re = /\b(?:[0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}\b/g;
+      out = out.replace(re, (m) => {
+        findings.push({ type: 'MAC', sample: m.toLowerCase() });
+        return '[MAC]';
+      });
+    }
+
+    // Advanced: SWIFT/BIC
+    if (opts.swift) {
+      const re = /\b[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}(?:[A-Z0-9]{3})?\b/g;
+      out = out.replace(re, (m) => {
+        // avoid scrubbing if it looks like a normal short word (already prevented by pattern)
+        findings.push({ type: 'SWIFT', sample: m });
+        return '[SWIFT]';
+      });
+    }
+
     // IBAN (best-effort)
     if (opts.ibans) {
       // Avoid newlines to prevent over-capturing across lines.

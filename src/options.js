@@ -10,6 +10,15 @@ const DEFAULTS = {
     ibans: true,
     cards: true,
     pesel: false,
+
+    // Advanced detectors (default OFF)
+    ssnUs: false,
+    ninoUk: false,
+    nipPl: false,
+    regonPl: false,
+    ip: false,
+    mac: false,
+    swift: false,
   },
   domains: {
     extra: []
@@ -32,6 +41,13 @@ const els = {
   optIbans: $('optIbans'),
   optCards: $('optCards'),
   optPesel: $('optPesel'),
+  optSsnUs: $('optSsnUs'),
+  optNinoUk: $('optNinoUk'),
+  optNipPl: $('optNipPl'),
+  optRegonPl: $('optRegonPl'),
+  optIp: $('optIp'),
+  optMac: $('optMac'),
+  optSwift: $('optSwift'),
 
   domain: $('domain'),
   btnAddDomain: $('btnAddDomain'),
@@ -70,6 +86,14 @@ async function load() {
   els.optIbans.checked = !!merged.scrub.ibans;
   els.optCards.checked = !!merged.scrub.cards;
   els.optPesel.checked = !!merged.scrub.pesel;
+
+  els.optSsnUs.checked = !!merged.scrub.ssnUs;
+  els.optNinoUk.checked = !!merged.scrub.ninoUk;
+  els.optNipPl.checked = !!merged.scrub.nipPl;
+  els.optRegonPl.checked = !!merged.scrub.regonPl;
+  els.optIp.checked = !!merged.scrub.ip;
+  els.optMac.checked = !!merged.scrub.mac;
+  els.optSwift.checked = !!merged.scrub.swift;
 
   renderDomains(merged.domains.extra || []);
 }
@@ -158,6 +182,14 @@ async function save() {
       ibans: els.optIbans.checked,
       cards: els.optCards.checked,
       pesel: els.optPesel.checked,
+
+      ssnUs: els.optSsnUs.checked,
+      ninoUk: els.optNinoUk.checked,
+      nipPl: els.optNipPl.checked,
+      regonPl: els.optRegonPl.checked,
+      ip: els.optIp.checked,
+      mac: els.optMac.checked,
+      swift: els.optSwift.checked,
     },
   };
 

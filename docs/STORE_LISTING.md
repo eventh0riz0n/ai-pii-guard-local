@@ -24,6 +24,7 @@ Detects (best-effort):
 - IBAN → `[IBAN]`
 - Payment cards (Luhn) → `[CARD]`
 - Optional: PESEL (PL) → `[PESEL]`
+- Advanced (optional): SSN (US), NINO (UK), NIP/REGON (PL), IPv4, MAC, SWIFT/BIC
 
 - Local-only: no network requests
 - No analytics
@@ -40,6 +41,9 @@ Productivity
 
 ## Support / Contact
 (Add your support email)
+
+## Support development
+Ko-fi: https://ko-fi.com/V7V01UDZTK
 
 ## Monetization idea
 Optional Ko-fi link in the description + “Support development” page.
