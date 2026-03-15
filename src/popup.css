@@ -1,0 +1,143 @@
+:root {
+  --bg: #0b0f17;
+  --panel: #121a27;
+  --text: #e6eaf2;
+  --muted: #9aa6bc;
+  --border: #22304a;
+  --primary: #4f7cff;
+  --danger: #ff5c72;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font: 13px/1.35 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", Arial;
+  color: var(--text);
+  background: var(--bg);
+  width: 420px;
+}
+
+header {
+  padding: 12px 12px 10px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, #0c1220 0%, var(--bg) 100%);
+}
+
+.title {
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+main { padding: 12px; }
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel);
+  margin-bottom: 12px;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  user-select: none;
+}
+
+.toggle input { transform: translateY(1px); }
+
+section { margin-bottom: 12px; }
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.label { font-weight: 600; }
+
+.stats {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+textarea {
+  width: 100%;
+  min-height: 96px;
+  resize: vertical;
+  padding: 8px;
+  background: #0e1524;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+}
+
+/* compact buttons on small popup widths */
+.btn { white-space: nowrap; }
+
+textarea[readonly] { opacity: 0.95; }
+
+.btn {
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #0e1524;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.btn:hover { border-color: #2f4170; }
+
+.btn-primary {
+  background: rgba(79, 124, 255, 0.15);
+  border-color: rgba(79, 124, 255, 0.5);
+}
+
+.btn-quiet {
+  color: var(--muted);
+}
+
+.findings {
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel);
+}
+
+#findings {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+}
+
+#findings li { margin: 4px 0; }
+
+footer {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+
+.footnote {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.footerActions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}

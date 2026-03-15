@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI PII Guard — Settings</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <main class="wrap">
+      <h1>AI PII Guard — Settings</h1>
+
+      <section class="card">
+        <h2>Paste Guard (on AI sites)</h2>
+        <p class="muted">
+          When you paste into ChatGPT/Claude/Gemini, the extension can detect PII/secrets and either ask to replace with scrubbed text or auto-replace.
+        </p>
+
+        <label class="row">
+          <input type="checkbox" id="pgEnabled" />
+          <div>
+            <div class="label">Enable Paste Guard</div>
+            <div class="hint">Runs only on supported AI sites (no network calls).</div>
+          </div>
+        </label>
+
+        <div class="subcard">
+          <div class="label">Mode</div>
+          <label class="radio">
+            <input type="radio" name="pgMode" value="ask" />
+            <span><b>Calm</b> — detect and ask whether to replace with scrubbed text</span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="pgMode" value="auto" />
+            <span><b>Force</b> — auto-replace on paste; you can undo (Ctrl+Z) or use the in-page Undo where supported</span>
+          </label>
+        </div>
+
+        <div class="subcard">
+          <div class="label">What to detect/scrub</div>
+          <div class="grid">
+            <label><input type="checkbox" id="optSecrets" /> Secrets</label>
+            <label><input type="checkbox" id="optEmails" /> Emails</label>
+            <label><input type="checkbox" id="optPhones" /> Phones</label>
+            <label><input type="checkbox" id="optIbans" /> IBAN</label>
+            <label><input type="checkbox" id="optCards" /> Cards</label>
+            <label><input type="checkbox" id="optPesel" /> PESEL (PL)</label>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="btnSave" class="btn btn-primary">Save</button>
+          <span id="status" class="muted"></span>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Supported sites</h2>
+        <ul class="muted">
+          <li>chatgpt.com</li>
+          <li>chat.openai.com</li>
+          <li>claude.ai</li>
+          <li>gemini.google.com</li>
+        </ul>
+        <p class="muted">These are enabled by default.</p>
+
+        <div class="subcard">
+          <div class="label">Add more domains (optional)</div>
+          <p class="muted">
+            Store-friendly mode: the extension will ask Chrome for permission per domain.
+            Example: <code>https://perplexity.ai/*</code>
+          </p>
+
+          <div class="row" style="align-items:center;">
+            <input id="domain" placeholder="https://example.com/*" style="flex:1; padding:10px; border-radius:12px; border:1px solid var(--border); background:#0e1524; color:var(--text);" />
+            <button id="btnAddDomain" class="btn btn-primary">Add</button>
+          </div>
+
+          <div id="domains" class="muted" style="margin-top:10px;"></div>
+        </div>
+      </section>
+
+      <section class="card" id="support">
+        <h2>Support development</h2>
+        <p class="muted">If this saved you from leaking a token once, it already paid for itself.</p>
+        <div class="actions">
+          <button id="btnKofi" class="btn btn-primary">Open Ko-fi</button>
+          <span class="muted">(set your link in <code>options.js</code>)</span>
+        </div>
+      </section>
+
+      <footer class="muted">
+        Local-only. No analytics. No network.
+      </footer>
+    </main>
+
+    <script src="options.js"></script>
+  </body>
+</html>

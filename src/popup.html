@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI PII Guard</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header>
+      <div class="title">AI PII Guard</div>
+      <div class="subtitle">local-only scrubber</div>
+    </header>
+
+    <main>
+      <section class="controls">
+        <label class="toggle">
+          <input type="checkbox" id="optSecrets" checked />
+          <span>Secrets</span>
+        </label>
+        <label class="toggle">
+          <input type="checkbox" id="optEmails" checked />
+          <span>Email</span>
+        </label>
+        <label class="toggle">
+          <input type="checkbox" id="optPhones" checked />
+          <span>Phone</span>
+        </label>
+        <label class="toggle">
+          <input type="checkbox" id="optIbans" checked />
+          <span>IBAN</span>
+        </label>
+        <label class="toggle">
+          <input type="checkbox" id="optCards" checked />
+          <span>Cards</span>
+        </label>
+        <label class="toggle">
+          <input type="checkbox" id="optPesel" />
+          <span>PESEL (PL)</span>
+        </label>
+      </section>
+
+      <section>
+        <div class="row">
+          <div class="label">Input</div>
+          <button id="btnPaste" class="btn">Paste</button>
+          <button id="btnPasteScrubCopy" class="btn btn-primary">Paste → Scrub → Copy</button>
+          <button id="btnClear" class="btn btn-quiet">Clear</button>
+        </div>
+        <textarea id="input" spellcheck="false" placeholder="Paste text you want to send to an AI chat…"></textarea>
+      </section>
+
+      <section>
+        <div class="row">
+          <div class="label">Output (scrubbed)</div>
+          <button id="btnScrub" class="btn btn-primary">Scrub</button>
+          <button id="btnScrubCopy" class="btn btn-primary">Scrub & Copy</button>
+          <button id="btnCopy" class="btn">Copy</button>
+        </div>
+        <textarea id="output" spellcheck="false" placeholder="Scrubbed output will appear here…" readonly></textarea>
+      </section>
+
+      <section class="findings">
+        <div class="row">
+          <div class="label">Findings</div>
+          <div id="stats" class="stats">—</div>
+        </div>
+        <ul id="findings"></ul>
+      </section>
+
+      <footer>
+        <div class="footnote">No network. No logging. Everything stays local.</div>
+        <div class="footerActions">
+          <button id="btnSettings" class="btn btn-quiet">Settings</button>
+          <button id="btnSupport" class="btn btn-quiet">Ko-fi</button>
+        </div>
+      </footer>
+    </main>
+
+    <script src="scrub.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>
