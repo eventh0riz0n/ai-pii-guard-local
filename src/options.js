@@ -17,7 +17,7 @@ const DEFAULTS = {
 };
 
 // TODO: replace with your Ko-fi link
-const KOFI_URL = 'https://ko-fi.com/YOURNAME';
+const KOFI_URL = 'https://ko-fi.com/V7V01UDZTK';
 
 const $ = (id) => document.getElementById(id);
 

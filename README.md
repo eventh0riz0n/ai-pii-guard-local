@@ -1,6 +1,6 @@
 # AI PII Guard (Local)
 
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/YOURNAME)
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/V7V01UDZTK)
 
 Tiny MV3 extension that **scrubs PII + secrets locally** before you paste into AI chats.
 
@@ -36,7 +36,7 @@ Open the extension settings (Options page):
 
 ## Support / Ko-fi
 If you find this useful, you can support development on Ko‑fi:
-- https://ko-fi.com/YOURNAME
+- https://ko-fi.com/V7V01UDZTK
 
 ## Privacy
 No data leaves the extension. No analytics. No network.

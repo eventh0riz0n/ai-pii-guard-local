@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "AI PII Guard (Local)",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Local-only text scrubbing for PII/secrets before you paste into AI chats.",
   "action": {
     "default_title": "AI PII Guard",
