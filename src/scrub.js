@@ -64,13 +64,37 @@
 
     // Secrets / API keys (conservative: only obvious prefixes)
     if (opts.secrets) {
+      // First: multi-line secrets blocks (private keys)
+      const keyBlock = /-----BEGIN [^-]*PRIVATE KEY-----[\s\S]*?-----END [^-]*PRIVATE KEY-----/g;
+      out = out.replace(keyBlock, (m) => {
+        findings.push({ type: 'SECRET', sample: 'PRIVATE_KEY: ' + m.slice(0, 20) + '…' });
+        return '[SECRET]';
+      });
+
       const rules = [
         { type: "GITHUB_TOKEN", re: /\bghp_[A-Za-z0-9]{36}\b/g },
         { type: "GITHUB_PAT", re: /\bgithub_pat_[A-Za-z0-9_]{22,}\b/g },
+        { type: "GITLAB_PAT", re: /\bglpat-[A-Za-z0-9_\-]{20,}\b/g },
+
         { type: "AWS_ACCESS_KEY_ID", re: /\bAKIA[0-9A-Z]{16}\b/g },
         { type: "GOOGLE_API_KEY", re: /\bAIza[0-9A-Za-z\-_]{35}\b/g },
         { type: "SLACK_TOKEN", re: /\bxox[baprs]-[0-9A-Za-z-]{10,}\b/g },
-        // OpenAI-style keys are often sk-... (can be other vendors too). Keep generic.
+
+        // Stripe
+        { type: "STRIPE_SK", re: /\bsk_(?:live|test)_[A-Za-z0-9]{10,}\b/g },
+        { type: "STRIPE_RK", re: /\brk_(?:live|test)_[A-Za-z0-9]{10,}\b/g },
+        { type: "STRIPE_WEBHOOK", re: /\bwhsec_[A-Za-z0-9]{10,}\b/g },
+
+        // Discord bot token
+        { type: "DISCORD_TOKEN", re: /\b\d{17,20}\.[A-Za-z0-9_\-]{6}\.[A-Za-z0-9_\-]{27}\b/g },
+
+        // Telegram bot token
+        { type: "TELEGRAM_BOT_TOKEN", re: /\b\d{6,12}:[A-Za-z0-9_\-]{30,}\b/g },
+
+        // JWT (common bearer token shape)
+        { type: "JWT", re: /\beyJ[A-Za-z0-9_\-]{10,}\.[A-Za-z0-9_\-]{10,}\.[A-Za-z0-9_\-]{10,}\b/g },
+
+        // Generic "sk-..." keys (OpenAI-style, but can be other vendors too)
         { type: "API_KEY", re: /\bsk-[A-Za-z0-9]{20,}\b/g }
       ];
 
