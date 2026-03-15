@@ -3,6 +3,7 @@
 ## permissions
 - `storage`: store settings (Paste Guard mode, enabled detectors, extra domains list).
 - `clipboardWrite`: copy scrubbed text from the popup.
+- `scripting`: register Paste Guard content scripts for user-approved extra domains (no code injection outside those domains).
 
 ## host permissions
 Default (built-in):

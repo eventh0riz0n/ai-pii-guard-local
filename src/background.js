@@ -98,6 +98,13 @@ chrome.runtime.onMessage.addListener((msg, sender) => {
       color: '#1bb55c',
       title: 'AI PII Guard: paste checked (no issues found)'
     });
+  } else if (kind === 'scrubbed') {
+    const summary = msg.summary ? ` (${msg.summary})` : '';
+    setBadge(tabId, {
+      text: 'OK',
+      color: '#1bb55c',
+      title: `AI PII Guard: scrubbed paste applied${summary}`
+    });
   } else if (kind === 'flagged') {
     const summary = msg.summary ? ` (${msg.summary})` : '';
     setBadge(tabId, {

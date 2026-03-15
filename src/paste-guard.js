@@ -268,6 +268,8 @@ chrome.storage.onChanged.addListener((_changes, area) => {
 
 function handleAuto(target, originalText, scrubbed, res) {
   const { undo } = insertText(target, scrubbed);
+  // We scrubbed successfully -> show OK badge with details.
+  notifyIndicator('scrubbed', res);
   showToast(`AI PII Guard: scrubbed paste (${summary(res) || res.findings.length})`, { undo });
 }
 
@@ -294,13 +296,15 @@ function handleAsk(target, originalText, scrubbed, res) {
 
   btnOrig2.addEventListener('click', () => {
     insertText(target, originalText);
+    // User chose to paste original despite findings.
     notifyIndicator('flagged', res);
     close();
   });
 
   btnScrub2.addEventListener('click', () => {
     insertText(target, scrubbed);
-    notifyIndicator('flagged', res);
+    // Scrubbed applied -> OK badge with details.
+    notifyIndicator('scrubbed', res);
     close();
   });
 }
@@ -330,7 +334,7 @@ function onPaste(e) {
 
   const mode = state.settings?.pasteGuard?.mode || 'ask';
   if (mode === 'auto') {
-    notifyIndicator('flagged', res);
+    // handleAuto() will set the final indicator
     handleAuto(root, pasted, res.out, res);
   } else {
     notifyIndicator('ask', res);
